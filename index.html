@@ -208,14 +208,14 @@
       </section>
     </main>
 
-    <nav class="controls" aria-label="Presentation controls">
-      <button id="prevBtn" type="button" aria-label="Previous slide">&larr;</button>
-      <span id="counter">1 / 13</span>
-      <button id="nextBtn" type="button" aria-label="Next slide">&rarr;</button>
-      <button id="notesBtn" type="button" aria-label="Presenter notes">N</button>
-      <button id="overviewBtn" type="button" aria-label="Slide grid">Grid</button>
-      <button id="fullBtn" type="button" aria-label="Toggle fullscreen">Full</button>
-      <button id="audioBtn" type="button" aria-label="Toggle sound" aria-pressed="true">Sound On</button>
+    <nav class="controls deck-ui" aria-label="Presentation controls">
+      <button class="deck-btn" id="prevBtn" type="button" aria-label="Previous slide">&#8249;</button>
+      <span class="deck-count" id="counter"><b>1</b><i>/</i><span>13</span></span>
+      <button class="deck-btn" id="nextBtn" type="button" aria-label="Next slide">&#8250;</button>
+      <button class="deck-btn deck-notes" id="notesBtn" type="button" aria-label="Presenter notes">N</button>
+      <button class="deck-btn deck-grid" id="overviewBtn" type="button" aria-label="Slide grid">&#9638;</button>
+      <button class="deck-btn deck-fs" id="fullBtn" type="button" aria-label="Toggle fullscreen">&#9974;</button>
+      <button class="deck-btn deck-audio" id="audioBtn" type="button" aria-label="Toggle sound" aria-pressed="true">&#9834;</button>
     </nav>
     <div id="deckDots" class="deck-dots" aria-label="Slide dots"></div>
     <div id="deckHint" class="deck-hint">Click, &rarr; or Space to advance &middot; press N for notes</div>

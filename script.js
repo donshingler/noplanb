@@ -34,8 +34,12 @@
   }
 
   function updateAudioButton() {
-    audioBtn.textContent = soundNeedsGesture && soundEnabled ? "Enable Sound" : soundEnabled ? "Sound On" : "Sound Off";
+    const label = soundNeedsGesture && soundEnabled ? "Enable sound" : soundEnabled ? "Sound on" : "Sound off";
+    audioBtn.textContent = soundEnabled ? "\u266A" : "\u00D7";
+    audioBtn.title = label;
+    audioBtn.setAttribute("aria-label", label);
     audioBtn.setAttribute("aria-pressed", String(soundEnabled));
+    audioBtn.classList.toggle("is-muted", !soundEnabled);
   }
 
   function applyAudioState(video) {
@@ -162,7 +166,7 @@
     slides.forEach((slide, index) => {
       slide.classList.toggle("is-active", index === current);
     });
-    counter.textContent = `${current + 1} / ${slides.length}`;
+    counter.innerHTML = `<b>${current + 1}</b><i>/</i><span>${slides.length}</span>`;
     notesText.textContent = slides[current].dataset.notes || "No speaker notes for this slide.";
     location.hash = `slide-${current + 1}`;
     Array.from(deckDots.children).forEach((dot, index) => dot.classList.toggle("on", index === current));

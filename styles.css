@@ -866,7 +866,7 @@ h2 {
   backdrop-filter: none;
 }
 
-.controls button {
+.deck-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -875,17 +875,17 @@ h2 {
   height: 46px;
   border: 1px solid rgba(255, 250, 240, 0.22);
   border-radius: 50%;
-  background: rgba(16, 23, 20, 0.8);
+  background: rgba(12, 13, 15, 0.8);
   color: var(--white);
-  font-size: 14px;
+  font-size: 24px;
   line-height: 1;
   cursor: pointer;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.controls button:hover,
-.controls button:focus-visible {
+.deck-btn:hover,
+.deck-btn:focus-visible {
   background: var(--gold);
   border-color: var(--gold);
   color: #17140a;
@@ -896,26 +896,36 @@ h2 {
 #counter {
   min-width: 62px;
   text-align: center;
-  font-size: 13px;
-  font-weight: 800;
   color: rgba(255, 250, 240, 0.72);
 }
 
-#overviewBtn,
-#fullBtn,
-#audioBtn {
-  width: auto;
-  border-radius: 999px;
-  padding: 0 13px;
+.deck-count {
+  min-width: 62px;
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
 }
 
-#overviewBtn,
-#fullBtn {
-  min-width: 54px;
+.deck-count b {
+  color: var(--white);
+  font-size: 18px;
 }
 
-#audioBtn {
-  min-width: 86px;
+.deck-count i {
+  margin: 0 5px;
+  font-style: normal;
+  opacity: 0.5;
+}
+
+.deck-notes,
+.deck-grid,
+.deck-fs,
+.deck-audio {
+  font-size: 16px;
+}
+
+.deck-audio.is-muted {
+  color: rgba(255, 250, 240, 0.5);
 }
 
 .deck-hint {
@@ -1172,10 +1182,11 @@ h2 {
     gap: 7px;
   }
 
-  .controls button {
+  .deck-btn {
     width: 42px;
     min-width: 42px;
     height: 42px;
+    font-size: 22px;
   }
 
   #overviewBtn,
@@ -1184,9 +1195,9 @@ h2 {
   }
 
   #audioBtn {
-    min-width: 72px;
-    padding: 0 10px;
-    font-size: 12px;
+    min-width: 42px;
+    padding: 0;
+    font-size: 16px;
   }
 
   .deck-hint {

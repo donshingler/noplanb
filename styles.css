@@ -58,6 +58,47 @@ button {
   transition-delay: 0s;
 }
 
+.speaker-toggle {
+  position: absolute;
+  top: clamp(14px, 2.2vw, 26px);
+  right: clamp(14px, 2.2vw, 26px);
+  z-index: 55;
+  min-width: 76px;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 250, 240, 0.24);
+  border-radius: 999px;
+  background: rgba(12, 13, 15, 0.76);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(8px);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.speaker-toggle:hover,
+.speaker-toggle:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #17140a;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.speaker-toggle[data-speaker="Justin"] {
+  border-color: rgba(216, 165, 55, 0.66);
+  color: var(--gold);
+}
+
+.speaker-toggle[data-speaker="Justin"]:hover,
+.speaker-toggle[data-speaker="Justin"]:focus-visible {
+  color: #17140a;
+}
+
 .content {
   position: relative;
   z-index: 2;
@@ -1156,6 +1197,15 @@ h2 {
   .bio {
     overflow: auto;
     place-items: start center;
+  }
+
+  .speaker-toggle {
+    top: 10px;
+    right: 10px;
+    min-width: 68px;
+    height: 32px;
+    padding: 0 11px;
+    font-size: 12px;
   }
 
   .route-legs,

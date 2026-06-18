@@ -17,6 +17,9 @@
   let hintFaded = false;
   let soundEnabled = true;
   let soundNeedsGesture = false;
+  const speakerStorageKey = "cuba-speaker-assignments";
+  const speakers = ["Don", "Justin"];
+  let speakerAssignments = loadSpeakerAssignments();
   const photoGridSources = [
     "assets/photo-grid/photo-01.jpg",
     "assets/photo-grid/photo-02.jpg",
@@ -31,6 +34,44 @@
 
   function clampIndex(index) {
     return Math.max(0, Math.min(slides.length - 1, index));
+  }
+
+  function loadSpeakerAssignments() {
+    try {
+      const stored = window.localStorage?.getItem(speakerStorageKey) || "[]";
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed;
+    } catch (error) {
+      // Ignore corrupt local state and fall back to the default speaker.
+    }
+    return [];
+  }
+
+  function saveSpeakerAssignments() {
+    try {
+      window.localStorage?.setItem(speakerStorageKey, JSON.stringify(speakerAssignments));
+    } catch (error) {
+      // Speaker labels still work for the current session if storage is unavailable.
+    }
+  }
+
+  function getSpeaker(index) {
+    return speakers.includes(speakerAssignments[index]) ? speakerAssignments[index] : speakers[0];
+  }
+
+  function setSpeakerButtonState(button, index) {
+    const speaker = getSpeaker(index);
+    button.textContent = speaker;
+    button.title = `Speaker for slide ${index + 1}: ${speaker}`;
+    button.setAttribute("aria-label", `Speaker for slide ${index + 1}: ${speaker}. Click to switch.`);
+    button.dataset.speaker = speaker;
+  }
+
+  function toggleSpeaker(index, button) {
+    const currentSpeaker = getSpeaker(index);
+    speakerAssignments[index] = currentSpeaker === speakers[0] ? speakers[1] : speakers[0];
+    setSpeakerButtonState(button, index);
+    saveSpeakerAssignments();
   }
 
   function updateAudioButton() {
@@ -236,6 +277,20 @@
     });
   }
 
+  function buildSpeakerToggles() {
+    slides.forEach((slide, index) => {
+      const button = document.createElement("button");
+      button.className = "speaker-toggle";
+      button.type = "button";
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleSpeaker(index, button);
+      });
+      setSpeakerButtonState(button, index);
+      slide.appendChild(button);
+    });
+  }
+
   function fadeHintOnce() {
     if (hintFaded) return;
     hintFaded = true;
@@ -319,6 +374,7 @@
     if (current !== before) render();
   });
 
+  buildSpeakerToggles();
   buildOverview();
   loadHash();
   render();

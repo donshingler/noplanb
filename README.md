@@ -44,6 +44,7 @@ python3 -m http.server 4187
 ## Notes
 
 - The presentation uses real HTML sections, not a simple screenshot export.
+- Presenter notes are editable from the `N` panel and save locally in the current browser.
 - A speaker bio slide for Don Shingler and Justin Leigh is now slide 1.
 - Slide 12 is a full-screen four-panel rotating photo collage using local copies of the provided Google Photos images.
 - Source images and videos were extracted from the PPTX and compressed for web use.

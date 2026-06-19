@@ -9,6 +9,7 @@
   const counter = document.getElementById("counter");
   const notesPanel = document.getElementById("notesPanel");
   const notesText = document.getElementById("notesText");
+  const notesSaveState = document.getElementById("notesSaveState");
   const overview = document.getElementById("overview");
   const deckDots = document.getElementById("deckDots");
   const deckHint = document.getElementById("deckHint");
@@ -18,8 +19,10 @@
   let soundEnabled = true;
   let soundNeedsGesture = false;
   const speakerStorageKey = "cuba-speaker-assignments";
+  const notesStorageKey = "cuba-presenter-notes";
   const speakers = ["Don", "Justin"];
   let speakerAssignments = loadSpeakerAssignments();
+  let editedNotes = loadEditedNotes();
   const photoGridSources = [
     "assets/photo-grid/photo-01.jpg",
     "assets/photo-grid/photo-02.jpg",
@@ -30,6 +33,12 @@
     "assets/photo-grid/photo-07.jpg",
     "assets/photo-grid/photo-08.jpg",
     "assets/photo-grid/photo-09.jpg",
+    "assets/photo-grid/photo-10.jpg",
+    "assets/photo-grid/photo-11.jpg",
+    "assets/photo-grid/photo-12.jpg",
+    "assets/photo-grid/photo-13.jpg",
+    "assets/photo-grid/photo-14.jpg",
+    "assets/photo-grid/photo-15.jpg",
   ];
 
   function clampIndex(index) {
@@ -53,6 +62,31 @@
     } catch (error) {
       // Speaker labels still work for the current session if storage is unavailable.
     }
+  }
+
+  function loadEditedNotes() {
+    try {
+      const stored = window.localStorage?.getItem(notesStorageKey) || "{}";
+      const parsed = JSON.parse(stored);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) return parsed;
+    } catch (error) {
+      // Ignore corrupt local state and fall back to the embedded presenter notes.
+    }
+    return {};
+  }
+
+  function saveEditedNotes() {
+    try {
+      window.localStorage?.setItem(notesStorageKey, JSON.stringify(editedNotes));
+      if (notesSaveState) notesSaveState.textContent = "Saved locally in this browser";
+    } catch (error) {
+      if (notesSaveState) notesSaveState.textContent = "Could not save notes locally";
+    }
+  }
+
+  function getSlideNotes(index) {
+    if (typeof editedNotes[index] === "string") return editedNotes[index];
+    return slides[index].dataset.notes || "No speaker notes for this slide.";
   }
 
   function getSpeaker(index) {
@@ -208,7 +242,8 @@
       slide.classList.toggle("is-active", index === current);
     });
     counter.innerHTML = `<b>${current + 1}</b><i>/</i><span>${slides.length}</span>`;
-    notesText.textContent = slides[current].dataset.notes || "No speaker notes for this slide.";
+    notesText.value = getSlideNotes(current);
+    if (notesSaveState) notesSaveState.textContent = "Saved locally in this browser";
     location.hash = `slide-${current + 1}`;
     Array.from(deckDots.children).forEach((dot, index) => dot.classList.toggle("on", index === current));
     playActiveMedia();
@@ -320,6 +355,11 @@
     next();
   });
   notesBtn.addEventListener("click", toggleNotes);
+  notesText.addEventListener("input", () => {
+    editedNotes[current] = notesText.value;
+    if (notesSaveState) notesSaveState.textContent = "Saving...";
+    saveEditedNotes();
+  });
   overviewBtn.addEventListener("click", () => toggleOverview());
   fullBtn.addEventListener("click", toggleFullscreen);
   audioBtn.addEventListener("click", handleAudioButton);
@@ -334,6 +374,15 @@
   document.addEventListener("keydown", (event) => {
     if (event.defaultPrevented) return;
     const key = event.key;
+    const isEditableTarget = event.target instanceof Element && event.target.closest("textarea, input, [contenteditable='true']");
+    if (isEditableTarget) {
+      if (key === "Escape") {
+        notesPanel.classList.remove("is-open");
+        notesPanel.setAttribute("aria-hidden", "true");
+        event.target.blur?.();
+      }
+      return;
+    }
     if (["ArrowRight", "PageDown", " ", "Enter"].includes(key)) {
       event.preventDefault();
       fadeHintOnce();

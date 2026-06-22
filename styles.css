@@ -533,7 +533,8 @@ h2 {
 }
 
 .money .side-photo {
-  left: clamp(16px, 4vw, 72px);
+  left: clamp(16px, 3vw, 48px);
+  width: min(360px, 29vw);
 }
 
 .side-photo {
@@ -550,7 +551,7 @@ h2 {
   grid-template-columns: minmax(320px, 1fr) 180px 210px;
   gap: 18px;
   align-items: end;
-  padding-left: clamp(230px, 24vw, 320px);
+  padding-left: clamp(315px, 32vw, 410px);
 }
 
 .rate-card {

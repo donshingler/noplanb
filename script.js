@@ -395,6 +395,36 @@
     next();
   });
 
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+
+  document.getElementById("deck").addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) return;
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.getElementById("deck").addEventListener("touchend", (event) => {
+    if (event.changedTouches.length !== 1) return;
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const duration = Date.now() - touchStartTime;
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50 && duration < 350) {
+      fadeHintOnce();
+      unlockAudio();
+      if (diffX < 0) {
+        next();
+      } else {
+        prev();
+      }
+    }
+  }, { passive: true });
+
   document.addEventListener("keydown", (event) => {
     if (event.defaultPrevented) return;
     const key = event.key;

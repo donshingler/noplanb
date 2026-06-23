@@ -18,8 +18,8 @@
   let hintFaded = false;
   let soundEnabled = true;
   let soundNeedsGesture = false;
-  const speakerStorageKey = "cuba-speaker-assignments";
-  const notesStorageKey = "cuba-presenter-notes";
+  const speakerStorageKey = "cuba-speaker-assignments-talk-pass-v2";
+  const notesStorageKey = "cuba-presenter-notes-talk-pass-v2";
   const speakers = ["Don", "Justin"];
   let speakerAssignments = loadSpeakerAssignments();
   let editedNotes = loadEditedNotes();

@@ -862,6 +862,65 @@ h2 {
   color: var(--gold);
 }
 
+.takeaway {
+  background:
+    linear-gradient(120deg, rgba(24, 37, 31, 0.94), rgba(39, 92, 73, 0.86)),
+    url("assets/source-images/image1.jpg") center / cover;
+  color: var(--white);
+}
+
+.takeaway-content {
+  width: min(1060px, 88vw);
+}
+
+.takeaway h2 {
+  max-width: 920px;
+  margin: 0;
+  font-size: clamp(54px, 7vw, 104px);
+  line-height: 0.95;
+}
+
+.takeaway .body {
+  max-width: 740px;
+  margin-top: 22px;
+  color: rgba(255, 250, 240, 0.82);
+  font-size: clamp(24px, 2.8vw, 38px);
+}
+
+.lesson-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(28px, 5vh, 54px);
+}
+
+.lesson-row div {
+  min-height: 150px;
+  padding: 22px;
+  border-top: 5px solid var(--gold);
+  background: rgba(255, 248, 234, 0.94);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.lesson-row strong,
+.lesson-row span {
+  display: block;
+}
+
+.lesson-row strong {
+  color: var(--rust);
+  font-size: clamp(24px, 2.7vw, 38px);
+  line-height: 1;
+}
+
+.lesson-row span {
+  margin-top: 12px;
+  font-size: clamp(18px, 1.8vw, 25px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
 .closer {
   background: var(--green);
   color: var(--white);
@@ -1127,6 +1186,7 @@ h2 {
   .money-grid,
   .cards,
   .callout-row,
+  .lesson-row,
   .beef-grid {
     grid-template-columns: 1fr;
   }
@@ -1242,6 +1302,14 @@ h2 {
   .photo-collage,
   .mud-strip {
     grid-template-columns: 1fr;
+  }
+
+  .takeaway h2 {
+    font-size: clamp(38px, 12vw, 68px);
+  }
+
+  .lesson-row div {
+    min-height: auto;
   }
 
   .photo-collage img,

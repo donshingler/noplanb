@@ -548,15 +548,19 @@ h2 {
 
 .money-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) 180px 210px;
-  gap: 18px;
+  grid-template-columns: minmax(260px, 1fr) minmax(140px, 170px) minmax(155px, 190px);
+  gap: 14px;
   align-items: end;
-  padding-left: clamp(315px, 32vw, 410px);
+  padding-left: clamp(285px, 30vw, 380px);
+}
+
+.money h2 {
+  font-size: clamp(34px, 4.8vw, 62px);
 }
 
 .rate-card {
-  min-height: 190px;
-  padding: 20px;
+  min-height: 180px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -582,6 +586,44 @@ h2 {
 .rate-card small {
   margin-top: 8px;
   font-size: 13px;
+}
+
+@media (max-width: 1120px) and (min-width: 901px) {
+  .money .side-photo {
+    width: min(320px, 27vw);
+  }
+
+  .money-grid {
+    grid-template-columns: minmax(235px, 1fr) minmax(120px, 150px) minmax(135px, 165px);
+    gap: 12px;
+    padding-left: clamp(250px, 28vw, 325px);
+  }
+
+  .money h2 {
+    font-size: clamp(32px, 4.4vw, 52px);
+  }
+
+  .money .body {
+    font-size: clamp(16px, 1.8vw, 21px);
+  }
+
+  .rate-card {
+    min-height: 164px;
+    padding: 15px;
+  }
+
+  .rate-card strong {
+    font-size: clamp(48px, 6vw, 74px);
+  }
+
+  .street strong {
+    font-size: clamp(46px, 5.5vw, 68px);
+  }
+
+  .rate-card span,
+  .rate-card small {
+    font-size: 12px;
+  }
 }
 
 .official {

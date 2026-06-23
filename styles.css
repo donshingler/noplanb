@@ -906,7 +906,8 @@ h2 {
 
 .takeaway {
   background:
-    linear-gradient(120deg, rgba(24, 37, 31, 0.94), rgba(39, 92, 73, 0.86)),
+    linear-gradient(90deg, rgba(8, 13, 11, 0.98) 0%, rgba(18, 30, 25, 0.93) 52%, rgba(24, 37, 31, 0.62) 100%),
+    linear-gradient(120deg, rgba(24, 37, 31, 0.9), rgba(39, 92, 73, 0.78)),
     url("assets/source-images/image1.jpg") center / cover;
   color: var(--white);
 }
@@ -915,18 +916,26 @@ h2 {
   width: min(1060px, 88vw);
 }
 
+.takeaway .kicker {
+  color: var(--gold);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
 .takeaway h2 {
   max-width: 920px;
   margin: 0;
+  color: var(--white);
   font-size: clamp(54px, 7vw, 104px);
   line-height: 0.95;
+  text-shadow: 0 5px 28px rgba(0, 0, 0, 0.58);
 }
 
 .takeaway .body {
   max-width: 740px;
   margin-top: 22px;
-  color: rgba(255, 250, 240, 0.82);
+  color: rgba(255, 250, 240, 0.94);
   font-size: clamp(24px, 2.8vw, 38px);
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.52);
 }
 
 .lesson-row {

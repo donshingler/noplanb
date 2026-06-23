@@ -18,9 +18,25 @@
   let hintFaded = false;
   let soundEnabled = true;
   let soundNeedsGesture = false;
-  const speakerStorageKey = "cuba-speaker-assignments-talk-pass-v2";
+  const speakerStorageKey = "cuba-speaker-assignments-talk-pass-v3";
   const notesStorageKey = "cuba-presenter-notes-talk-pass-v2";
-  const speakers = ["Don", "Justin"];
+  const defaultSpeakerAssignments = [
+    "Don",
+    "Both",
+    "",
+    "Justin",
+    "Don",
+    "Don",
+    "Justin",
+    "Justin",
+    "Don",
+    "Justin",
+    "Justin",
+    "Don",
+    "Justin",
+    "",
+  ];
+  const speakers = ["Don", "Both", "Justin"];
   let speakerAssignments = loadSpeakerAssignments();
   let editedNotes = loadEditedNotes();
   const photoGridSources = [
@@ -90,20 +106,28 @@
   }
 
   function getSpeaker(index) {
-    return speakers.includes(speakerAssignments[index]) ? speakerAssignments[index] : speakers[0];
+    if (speakers.includes(speakerAssignments[index])) return speakerAssignments[index];
+    return defaultSpeakerAssignments[index] || "";
   }
 
   function setSpeakerButtonState(button, index) {
     const speaker = getSpeaker(index);
+    const hasSpeaker = speaker.length > 0;
+    button.hidden = !hasSpeaker;
     button.textContent = speaker;
-    button.title = `Speaker for slide ${index + 1}: ${speaker}`;
-    button.setAttribute("aria-label", `Speaker for slide ${index + 1}: ${speaker}. Click to switch.`);
+    button.title = hasSpeaker ? `Speaker for slide ${index + 1}: ${speaker}` : `No speaker assigned for slide ${index + 1}`;
+    button.setAttribute(
+      "aria-label",
+      hasSpeaker ? `Speaker for slide ${index + 1}: ${speaker}. Click to switch.` : `No speaker assigned for slide ${index + 1}.`
+    );
     button.dataset.speaker = speaker;
   }
 
   function toggleSpeaker(index, button) {
     const currentSpeaker = getSpeaker(index);
-    speakerAssignments[index] = currentSpeaker === speakers[0] ? speakers[1] : speakers[0];
+    const currentSpeakerIndex = speakers.indexOf(currentSpeaker);
+    const nextSpeakerIndex = currentSpeakerIndex >= 0 ? (currentSpeakerIndex + 1) % speakers.length : 0;
+    speakerAssignments[index] = speakers[nextSpeakerIndex];
     setSpeakerButtonState(button, index);
     saveSpeakerAssignments();
   }

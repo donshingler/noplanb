@@ -94,8 +94,18 @@ button {
   color: var(--gold);
 }
 
+.speaker-toggle[data-speaker="Both"] {
+  border-color: rgba(75, 127, 143, 0.78);
+  color: #d7eef3;
+}
+
 .speaker-toggle[data-speaker="Justin"]:hover,
+.speaker-toggle[data-speaker="Both"]:hover,
 .speaker-toggle[data-speaker="Justin"]:focus-visible {
+  color: #17140a;
+}
+
+.speaker-toggle[data-speaker="Both"]:focus-visible {
   color: #17140a;
 }
 

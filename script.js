@@ -210,6 +210,25 @@
     photoCollageTimers = [];
   }
 
+  function updatePhotoPauseButton() {
+    const panel = slides[current].querySelector("[data-photo-panel]");
+    const button = slides[current].querySelector(".photo-pause");
+    if (!button || !panel) return;
+    const paused = panel.dataset.paused === "true";
+    const label = paused ? "Resume photo rotation" : "Pause photo rotation";
+    button.innerHTML = paused ? "&#9654;" : "&#9208;";
+    button.setAttribute("aria-label", label);
+    button.title = label;
+    button.setAttribute("aria-pressed", String(paused));
+  }
+
+  function togglePhotoCollage() {
+    const panel = slides[current].querySelector("[data-photo-panel]");
+    if (!panel) return;
+    panel.dataset.paused = String(panel.dataset.paused !== "true");
+    updatePhotoPauseButton();
+  }
+
   function startPhotoCollage() {
     const panel = slides[current].querySelector("[data-photo-panel]");
     if (!panel) return;
@@ -227,6 +246,7 @@
       images[1].classList.remove("on");
 
       const step = () => {
+        if (panel.dataset.paused === "true") return;
         sourceIndex = (sourceIndex + frames.length) % photoGridSources.length;
         const nextSource = photoGridSources[sourceIndex];
         const back = front ^ 1;
@@ -267,7 +287,10 @@
       stopPhotoCollage();
       return;
     }
+    const panel = slides[current].querySelector("[data-photo-panel]");
+    panel.dataset.paused = "false";
     startPhotoCollage();
+    updatePhotoPauseButton();
   }
 
   function render() {
@@ -399,6 +422,12 @@
   overviewBtn.addEventListener("click", () => toggleOverview());
   fullBtn.addEventListener("click", toggleFullscreen);
   audioBtn.addEventListener("click", handleAudioButton);
+  document.querySelectorAll(".photo-pause").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      togglePhotoCollage();
+    });
+  });
 
   document.getElementById("deck").addEventListener("click", (event) => {
     if (event.target.closest("button, a, video")) return;

@@ -879,6 +879,38 @@ h2 {
   overflow: hidden;
 }
 
+.photo-pause {
+  position: absolute;
+  top: clamp(14px, 2.2vw, 26px);
+  left: clamp(14px, 2.2vw, 26px);
+  z-index: 55;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255, 250, 240, 0.34);
+  border-radius: 50%;
+  background: rgba(12, 13, 15, 0.76);
+  color: var(--white);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(8px);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.photo-pause:hover,
+.photo-pause:focus-visible,
+.photo-pause[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #17140a;
+  outline: none;
+  transform: translateY(-1px);
+}
+
 .photo-collage-reel {
   position: absolute;
   inset: 0;
@@ -1381,6 +1413,14 @@ h2 {
     height: 32px;
     padding: 0 11px;
     font-size: 12px;
+  }
+
+  .photo-pause {
+    top: 10px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 
   .route-legs,

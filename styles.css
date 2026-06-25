@@ -644,7 +644,7 @@ h2 {
     font-size: clamp(48px, 6vw, 74px);
   }
 
-  .street-brick strong {
+  .street strong {
     font-size: clamp(46px, 5.5vw, 68px);
   }
 
@@ -654,16 +654,12 @@ h2 {
   }
 }
 
-.us-card {
-  background: linear-gradient(135deg, #2b303c, #1f232b);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), var(--shadow);
+.official {
+  background: var(--rust);
 }
 
-.street-brick {
-  background: linear-gradient(135deg, var(--green-2), #1e4537);
-  border-left: 5px solid var(--gold);
+.street {
+  background: var(--green-2);
 }
 
 .croc {

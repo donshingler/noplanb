@@ -159,6 +159,14 @@
     });
   }
 
+  function enableMutedLoopAfterFirstPlay(video) {
+    video.dataset.forceMuted = "true";
+    video.loop = true;
+    video.currentTime = 0;
+    applyAudioState(video);
+    video.play().catch(() => {});
+  }
+
   function playActiveMedia() {
     slides.forEach((slide, index) => {
       slide.querySelectorAll("video").forEach((video) => {
@@ -366,6 +374,9 @@
     slide.querySelectorAll("video").forEach((video) => {
       applyAudioState(video);
       video.addEventListener("click", unlockAudio);
+      if (video.dataset.muteAfterFirstPlay === "true") {
+        video.addEventListener("ended", () => enableMutedLoopAfterFirstPlay(video), { once: true });
+      }
     });
   });
 

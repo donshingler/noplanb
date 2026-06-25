@@ -587,6 +587,7 @@ h2 {
 }
 
 .rate-card {
+  height: 222px;
   min-height: 180px;
   padding: 18px;
   display: flex;
@@ -636,6 +637,7 @@ h2 {
   }
 
   .rate-card {
+    height: 176px;
     min-height: 164px;
     padding: 15px;
   }
@@ -1268,6 +1270,10 @@ h2 {
   .lesson-row,
   .beef-grid {
     grid-template-columns: 1fr;
+  }
+
+  .rate-card {
+    height: 180px;
   }
 
   .split-motion {

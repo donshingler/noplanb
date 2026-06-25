@@ -142,14 +142,15 @@
   }
 
   function applyAudioState(video) {
-    video.muted = !soundEnabled;
-    video.volume = soundEnabled ? 1 : 0;
+    const forceMuted = video.dataset.forceMuted === "true";
+    video.muted = forceMuted || !soundEnabled;
+    video.volume = forceMuted || !soundEnabled ? 0 : 1;
   }
 
   function playVideo(video) {
     applyAudioState(video);
     video.play().catch(() => {
-      if (!soundEnabled) return;
+      if (!soundEnabled || video.dataset.forceMuted === "true") return;
       soundNeedsGesture = true;
       updateAudioButton();
       video.muted = true;
